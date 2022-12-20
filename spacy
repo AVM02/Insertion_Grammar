@@ -1,0 +1,22 @@
+# Import spaCy and define the language
+import spacy
+nlp = spacy.load('en')
+
+# Defining the rules and elements of the minimalist grammar
+grammar = [
+    {
+        'label': 'sentence',
+        'pattern': [{'POS': 'VERB'}, {'POS': 'NOUN'}]
+    }
+]
+
+# Using the spaCy API to parse a sentence according to the grammar
+doc = nlp("Peter eats apples.")
+parsed = nlp.parser(doc, grammar=grammar)
+
+# Using the spaCy API to generate sentences according to the grammar
+generated = nlp.generator(parsed, grammar=grammar)
+
+# Print the generated sentences
+for sent in generated:
+    print(sent.text)
